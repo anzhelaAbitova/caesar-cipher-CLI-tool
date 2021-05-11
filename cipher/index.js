@@ -1,10 +1,10 @@
-const program = require('commander')
+const commander = require('commander')
 const { pipeline } = require('stream')
 const fs = require('fs')
 const validate = require('./src/validate')
 const Transformer = require('./src/transformer')
 
-program
+commander
   .storeOptionsAsProperties(false)
   .option('-s --shift <shift>', 'option (required): shift (only integer shift value)')
   .option('-i --input <file>', 'option (not required): input file (if none - STDIN)')
@@ -12,7 +12,7 @@ program
   .option('-a --action <action>', 'option (required): action ONLY encode/decode')
   .parse(process.argv)
 
-const { shift, input, output, action } = program.opts()
+const { shift, input, output, action } = commander.opts()
 validate(shift, input, output, action, () => process.exit(1))
 
 pipeline(
